@@ -3,10 +3,10 @@ spring:
     name: cavoshbackend
 
   config:
-    import: optional:file:.env.local[.properties]
+    import: optional:file:.env.neon[.properties]
 
   datasource:
-    url: jdbc:postgresql://localhost:${POSTGRES_PORT:5432}/${POSTGRES_DB}
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:${POSTGRES_PORT:5432}/${POSTGRES_DB}}
     username: ${POSTGRES_USER}
     password: ${POSTGRES_PASSWORD}
 
