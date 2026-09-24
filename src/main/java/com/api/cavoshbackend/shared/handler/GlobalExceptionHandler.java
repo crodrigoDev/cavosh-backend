@@ -4,6 +4,7 @@ import com.api.cavoshbackend.shared.dto.ErrorResponse;
 import com.api.cavoshbackend.shared.dto.FieldErrorResponse;
 import com.api.cavoshbackend.usuario.exception.CodigoVerificacionInvalidoException;
 import com.api.cavoshbackend.usuario.exception.CuentaNoVerificadaException;
+import com.api.cavoshbackend.usuario.exception.EmailNoEnviadoException;
 import com.api.cavoshbackend.usuario.exception.EmailYaEstaRegistradoException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +13,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
-import org.springframework.mail.MailException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -137,9 +137,9 @@ public class GlobalExceptionHandler {
         );
     }
 
-    @ExceptionHandler(MailException.class)
-    public ResponseEntity<ErrorResponse> handleMailError(
-            MailException exception,
+    @ExceptionHandler(EmailNoEnviadoException.class)
+    public ResponseEntity<ErrorResponse> handleEmailError(
+            EmailNoEnviadoException exception,
             HttpServletRequest request
     ) {
         log.error("No se pudo enviar el correo", exception);

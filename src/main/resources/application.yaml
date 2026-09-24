@@ -23,17 +23,9 @@ spring:
     enabled: true
     locations: classpath:db/migration
 
-  mail:
-    host: ${MAIL_HOST}
-    port: ${MAIL_PORT:587}
-    username: ${MAIL_USERNAME}
-    password: ${MAIL_PASSWORD}
-    properties:
-      "[mail.smtp.auth]": true
-      "[mail.smtp.starttls.enable]": true
-      "[mail.smtp.connectiontimeout]": 5000
-      "[mail.smtp.timeout]": 3000
-      "[mail.smtp.writetimeout]": 5000
+  resend:
+    api-key: ${RESEND_API_KEY}
+    from: ${RESEND_FROM}
 
   app:
     jwt:
