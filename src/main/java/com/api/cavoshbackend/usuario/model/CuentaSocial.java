@@ -39,4 +39,14 @@ public class CuentaSocial {
     @CreationTimestamp
     @Column(name = "fecha_creacion", nullable = false, updatable = false)
     private Instant fechaCreacion;
+
+    public CuentaSocial(
+            String idProveedor,
+            ProveedorSocial proveedor,
+            Usuario usuario
+    ) {
+        this.idProveedor = idProveedor;
+        this.proveedor = proveedor;
+        this.usuario = usuario;
+    }
 }

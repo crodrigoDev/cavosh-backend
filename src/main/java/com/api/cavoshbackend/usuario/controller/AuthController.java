@@ -2,6 +2,7 @@ package com.api.cavoshbackend.usuario.controller;
 
 import com.api.cavoshbackend.shared.dto.ApiResponse;
 import com.api.cavoshbackend.usuario.dto.request.LoginRequest;
+import com.api.cavoshbackend.usuario.dto.request.GoogleLoginRequest;
 import com.api.cavoshbackend.usuario.dto.request.RegistrarRequest;
 import com.api.cavoshbackend.usuario.dto.request.VerificarCodigoRequest;
 import com.api.cavoshbackend.usuario.dto.response.LoginResponse;
@@ -35,6 +36,20 @@ public class AuthController {
         return ResponseEntity.ok(new ApiResponse<LoginResponse>(
                 true,
                 "Se inicio sesión exitosamente",
+                loginResponse,
+                Instant.now(clock)
+        ));
+    }
+
+    @PostMapping("/google")
+    public ResponseEntity<ApiResponse<LoginResponse>> loginGoogle(
+            @Valid @RequestBody GoogleLoginRequest request
+    ) {
+        LoginResponse loginResponse = authService.loginGoogle(request);
+
+        return ResponseEntity.ok(new ApiResponse<>(
+                true,
+                "Se inició sesión con Google exitosamente",
                 loginResponse,
                 Instant.now(clock)
         ));
