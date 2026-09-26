@@ -1,6 +1,8 @@
 package com.api.cavoshbackend.shared.handler;
 
 import com.api.cavoshbackend.producto.exception.ProductoNoEncontradoException;
+import com.api.cavoshbackend.pedido.exception.PedidoInvalidoException;
+import com.api.cavoshbackend.pedido.exception.PedidoNoEncontradoException;
 import com.api.cavoshbackend.shared.dto.ErrorResponse;
 import com.api.cavoshbackend.shared.dto.FieldErrorResponse;
 import com.api.cavoshbackend.usuario.exception.CodigoVerificacionInvalidoException;
@@ -180,6 +182,24 @@ public class GlobalExceptionHandler {
                 List.of(),
                 request
         );
+    }
+
+    @ExceptionHandler(PedidoNoEncontradoException.class)
+    public ResponseEntity<ErrorResponse> handlePedidoNoEncontrado(
+            PedidoNoEncontradoException exception,
+            HttpServletRequest request
+    ) {
+        return buildResponse(HttpStatus.NOT_FOUND, "ORDER_NOT_FOUND",
+                exception.getMessage(), List.of(), request);
+    }
+
+    @ExceptionHandler(PedidoInvalidoException.class)
+    public ResponseEntity<ErrorResponse> handlePedidoInvalido(
+            PedidoInvalidoException exception,
+            HttpServletRequest request
+    ) {
+        return buildResponse(HttpStatus.BAD_REQUEST, "INVALID_ORDER",
+                exception.getMessage(), List.of(), request);
     }
 
     @ExceptionHandler(EmailNoEnviadoException.class)
