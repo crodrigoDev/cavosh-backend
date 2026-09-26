@@ -1,22 +1,21 @@
 package com.api.cavoshbackend.usuario.service;
 
-import com.api.cavoshbackend.usuario.dto.request.LoginRequest;
 import com.api.cavoshbackend.usuario.dto.request.GoogleLoginRequest;
+import com.api.cavoshbackend.usuario.dto.request.LoginRequest;
 import com.api.cavoshbackend.usuario.dto.request.RegistrarRequest;
 import com.api.cavoshbackend.usuario.dto.request.VerificarCodigoRequest;
 import com.api.cavoshbackend.usuario.dto.response.LoginResponse;
+import com.api.cavoshbackend.usuario.enums.ProveedorSocial;
 import com.api.cavoshbackend.usuario.exception.CodigoVerificacionInvalidoException;
 import com.api.cavoshbackend.usuario.exception.CuentaNoVerificadaException;
 import com.api.cavoshbackend.usuario.exception.EmailYaEstaRegistradoException;
-import com.api.cavoshbackend.usuario.model.Usuario;
 import com.api.cavoshbackend.usuario.model.CuentaSocial;
-import com.api.cavoshbackend.usuario.enums.ProveedorSocial;
+import com.api.cavoshbackend.usuario.model.Usuario;
 import com.api.cavoshbackend.usuario.repository.CuentaSocialRepository;
 import com.api.cavoshbackend.usuario.repository.UsuarioRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
@@ -40,16 +39,16 @@ public class AuthService {
 
         Usuario usuario = usuarioRepository.findByEmail(emailNormalizado)
                 .orElseThrow(() ->
-                            new BadCredentialsException("Credenciales Inválidas")
-                        );
+                        new BadCredentialsException("Credenciales Inválidas")
+                );
 
-        if(!passwordEncoder.matches(
+        if (!passwordEncoder.matches(
                 request.password(),
                 usuario.getPasswordHash()
         ))
             throw new BadCredentialsException("Credenciales Inválidas");
 
-        if(!usuario.isActivo()){
+        if (!usuario.isActivo()) {
             codigoVerificacionService.crearYEnviar(usuario);
             throw new CuentaNoVerificadaException();
         }
@@ -113,7 +112,7 @@ public class AuthService {
 
         String emailNormalizado = request.email().strip().toLowerCase(Locale.ROOT);
 
-        if(usuarioRepository.existsByEmail(emailNormalizado))
+        if (usuarioRepository.existsByEmail(emailNormalizado))
             throw new EmailYaEstaRegistradoException();
 
         String passwordHash = passwordEncoder.encode(request.password());
@@ -138,7 +137,7 @@ public class AuthService {
         Usuario usuario = usuarioRepository.findByEmail(emailNormalizado)
                 .orElseThrow(CodigoVerificacionInvalidoException::new);
 
-        if(usuario.isActivo())
+        if (usuario.isActivo())
             return usuario.getEmail();
 
         codigoVerificacionService.verificar(usuario, request.codigo());

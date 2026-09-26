@@ -37,7 +37,7 @@ public class ProductoSize {
             BigDecimal precio,
             boolean predeterminado,
             Producto producto
-    ){
+    ) {
         this.nombre = nombre;
         this.precio = precio;
         this.predeterminado = predeterminado;

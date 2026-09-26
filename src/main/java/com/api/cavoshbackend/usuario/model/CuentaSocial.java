@@ -2,7 +2,10 @@ package com.api.cavoshbackend.usuario.model;
 
 import com.api.cavoshbackend.usuario.enums.ProveedorSocial;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.Instant;
@@ -14,11 +17,11 @@ import java.time.Instant;
 @Table(
         name = "cuentas_sociales",
         uniqueConstraints = {
-            @UniqueConstraint(
-                    name = "uk_cuentas_sociales_proveedor_id",
-                    columnNames = {"proveedor", "id_proveedor"}
-            )
-    })
+                @UniqueConstraint(
+                        name = "uk_cuentas_sociales_proveedor_id",
+                        columnNames = {"proveedor", "id_proveedor"}
+                )
+        })
 public class CuentaSocial {
 
     @Id

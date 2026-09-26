@@ -1,5 +1,6 @@
 package com.api.cavoshbackend.shared.handler;
 
+import com.api.cavoshbackend.producto.exception.ProductoNoEncontradoException;
 import com.api.cavoshbackend.shared.dto.ErrorResponse;
 import com.api.cavoshbackend.shared.dto.FieldErrorResponse;
 import com.api.cavoshbackend.usuario.exception.CodigoVerificacionInvalidoException;
@@ -17,6 +18,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.time.Clock;
 import java.time.Instant;
@@ -45,40 +47,40 @@ public class GlobalExceptionHandler {
                 .toList();
 
         return buildResponse(
-                    HttpStatus.BAD_REQUEST,
-                    "VALIDATION_ERROR",
-                    "Hay campos inválidos",
-                    fieldErrors,
-                    request
-            );
+                HttpStatus.BAD_REQUEST,
+                "VALIDATION_ERROR",
+                "Hay campos inválidos",
+                fieldErrors,
+                request
+        );
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ErrorResponse> handleInvalidJson(
             HttpMessageNotReadableException exception,
             HttpServletRequest request
-    ){
+    ) {
         return buildResponse(
-                        HttpStatus.BAD_REQUEST,
-                        "INVALID_JSON",
-                        "El cuerpo de la petición no es válido",
-                        List.of(),
-                        request
-                );
+                HttpStatus.BAD_REQUEST,
+                "INVALID_JSON",
+                "El cuerpo de la petición no es válido",
+                List.of(),
+                request
+        );
     }
 
     @ExceptionHandler(BadCredentialsException.class)
     public ResponseEntity<ErrorResponse> handleBadCredentials(
             BadCredentialsException exception,
             HttpServletRequest request
-    ){
+    ) {
         return buildResponse(
-                        HttpStatus.UNAUTHORIZED,
-                        "INVALID_CREDENTIALS",
-                        "Email o contraseña incorrectos",
-                        List.of(),
-                        request
-                );
+                HttpStatus.UNAUTHORIZED,
+                "INVALID_CREDENTIALS",
+                "Email o contraseña incorrectos",
+                List.of(),
+                request
+        );
     }
 
     @ExceptionHandler(CuentaNoVerificadaException.class)
@@ -132,6 +134,34 @@ public class GlobalExceptionHandler {
                 HttpStatus.CONFLICT,
                 "DATA_CONFLICT",
                 "La operación entra en conflicto con datos existentes",
+                List.of(),
+                request
+        );
+    }
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<ErrorResponse> handleInvalidParameter(
+            MethodArgumentTypeMismatchException exception,
+            HttpServletRequest request
+    ) {
+        return buildResponse(
+                HttpStatus.BAD_REQUEST,
+                "INVALID_PARAMETER",
+                "El parámetro " + exception.getName() + " no es válido",
+                List.of(),
+                request
+        );
+    }
+
+    @ExceptionHandler(ProductoNoEncontradoException.class)
+    public ResponseEntity<ErrorResponse> handleProductoNoEncontrado(
+            ProductoNoEncontradoException exception,
+            HttpServletRequest request
+    ) {
+        return buildResponse(
+                HttpStatus.NOT_FOUND,
+                "PRODUCT_NOT_FOUND",
+                exception.getMessage(),
                 List.of(),
                 request
         );

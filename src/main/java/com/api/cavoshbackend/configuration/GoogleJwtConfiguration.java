@@ -3,6 +3,7 @@ package com.api.cavoshbackend.configuration;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.oauth2.core.DelegatingOAuth2TokenValidator;
 import org.springframework.security.oauth2.core.OAuth2Error;
 import org.springframework.security.oauth2.core.OAuth2TokenValidator;
 import org.springframework.security.oauth2.core.OAuth2TokenValidatorResult;
@@ -10,7 +11,6 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.JwtTimestampValidator;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
-import org.springframework.security.oauth2.core.DelegatingOAuth2TokenValidator;
 
 @Configuration
 public class GoogleJwtConfiguration {
@@ -39,8 +39,8 @@ public class GoogleJwtConfiguration {
                 jwt.getAudience().contains(clientId)
                         ? OAuth2TokenValidatorResult.success()
                         : OAuth2TokenValidatorResult.failure(
-                                new OAuth2Error("invalid_token", "Audiencia de Google inválida", null)
-                        );
+                        new OAuth2Error("invalid_token", "Audiencia de Google inválida", null)
+                );
 
         decoder.setJwtValidator(new DelegatingOAuth2TokenValidator<>(
                 new JwtTimestampValidator(),

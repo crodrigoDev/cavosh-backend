@@ -14,7 +14,7 @@ public class ResendConfiguration {
     public RestClient resendRestClient(
             RestClient.Builder builder,
             @Value("${spring.resend.api-key}") String apiKey
-    ){
+    ) {
         return builder
                 .baseUrl("https://api.resend.com")
                 .defaultHeader(

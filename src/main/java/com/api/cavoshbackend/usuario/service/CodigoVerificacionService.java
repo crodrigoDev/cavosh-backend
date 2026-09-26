@@ -67,7 +67,7 @@ public class CodigoVerificacionService {
         return String.format(Locale.ROOT, "%06d", numero);
     }
 
-    private void expirarCodigosAnteriores(Usuario usuario){
+    private void expirarCodigosAnteriores(Usuario usuario) {
         codigoRepository
                 .findAllByUsuarioAndEstado(usuario, EstadoCodigo.VIGENTE)
                 .forEach(CodigoVerificacion::marcarExpirado);

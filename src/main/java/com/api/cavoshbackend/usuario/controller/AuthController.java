@@ -1,8 +1,8 @@
 package com.api.cavoshbackend.usuario.controller;
 
 import com.api.cavoshbackend.shared.dto.ApiResponse;
-import com.api.cavoshbackend.usuario.dto.request.LoginRequest;
 import com.api.cavoshbackend.usuario.dto.request.GoogleLoginRequest;
+import com.api.cavoshbackend.usuario.dto.request.LoginRequest;
 import com.api.cavoshbackend.usuario.dto.request.RegistrarRequest;
 import com.api.cavoshbackend.usuario.dto.request.VerificarCodigoRequest;
 import com.api.cavoshbackend.usuario.dto.response.LoginResponse;
@@ -30,7 +30,7 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<ApiResponse<LoginResponse>> login(
             @Valid @RequestBody LoginRequest request
-    ){
+    ) {
         LoginResponse loginResponse = authService.login(request);
 
         return ResponseEntity.ok(new ApiResponse<LoginResponse>(
@@ -58,7 +58,7 @@ public class AuthController {
     @PostMapping("/registrar")
     public ResponseEntity<ApiResponse<String>> registrar(
             @Valid @RequestBody RegistrarRequest request
-    ){
+    ) {
         String email = authService.registrar(request);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(
@@ -74,7 +74,7 @@ public class AuthController {
     @PostMapping("/verificar")
     public ResponseEntity<ApiResponse<String>> verificar(
             @Valid @RequestBody VerificarCodigoRequest request
-    ){
+    ) {
         String email = authService.verificarCodigo(request);
 
         return ResponseEntity.status(HttpStatus.OK).body(

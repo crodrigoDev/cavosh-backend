@@ -24,7 +24,7 @@ public class Categoria {
     public Categoria(
             String nombre,
             Integer orden
-    ){
+    ) {
         this.nombre = nombre;
         this.orden = orden;
     }

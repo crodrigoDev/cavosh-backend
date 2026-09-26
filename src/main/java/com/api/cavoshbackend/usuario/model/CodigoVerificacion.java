@@ -2,7 +2,9 @@ package com.api.cavoshbackend.usuario.model;
 
 import com.api.cavoshbackend.usuario.enums.EstadoCodigo;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -44,7 +46,7 @@ public class CodigoVerificacion {
             String codigo,
             Instant fechaExpiracion,
             Usuario usuario
-    ){
+    ) {
         this.codigo = codigo;
         this.estado = EstadoCodigo.VIGENTE;
         this.fechaExpiracion = fechaExpiracion;

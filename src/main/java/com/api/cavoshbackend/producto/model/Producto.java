@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "productos" )
+@Table(name = "productos")
 public class Producto {
 
     @Id
@@ -47,7 +47,7 @@ public class Producto {
             boolean frecuente,
             boolean personalizable,
             Categoria categoria
-    ){
+    ) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.imagenUrl = imagenUrl;

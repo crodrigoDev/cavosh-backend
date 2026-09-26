@@ -17,7 +17,7 @@ public class EmailService {
     public EmailService(
             RestClient resendRestClient,
             @Value("${spring.resend.from}") String remitente
-    ){
+    ) {
         this.resendRestClient = resendRestClient;
         this.remitente = remitente;
     }
@@ -25,22 +25,22 @@ public class EmailService {
     public void enviarCodigoVerificacion(
             String destinatario,
             String codigo
-    ){
+    ) {
         ResendEmailRequest request = new ResendEmailRequest(
                 remitente,
                 List.of(destinatario),
                 "Código de verificación - Cavosh",
                 """
-                Hola,
-
-                Tu código de verificación es:
-
-                %s
-
-                Este código expirará en 10 minutos.
-
-                Si no solicitaste este código, puedes ignorar este correo.
-                """.formatted(codigo)
+                        Hola,
+                        
+                        Tu código de verificación es:
+                        
+                        %s
+                        
+                        Este código expirará en 10 minutos.
+                        
+                        Si no solicitaste este código, puedes ignorar este correo.
+                        """.formatted(codigo)
         );
 
         try {
@@ -51,9 +51,9 @@ public class EmailService {
                     .retrieve()
                     .body(ResendEmailResponse.class);
 
-            if(response == null || response.id() == null)
+            if (response == null || response.id() == null)
                 throw new EmailNoEnviadoException();
-        } catch (RestClientException exception){
+        } catch (RestClientException exception) {
             throw new EmailNoEnviadoException(exception);
         }
     }
@@ -63,10 +63,12 @@ public class EmailService {
             List<String> to,
             String subject,
             String text
-    ) {}
+    ) {
+    }
 
     private record ResendEmailResponse(
             String id
-    ) {}
+    ) {
+    }
 
 }

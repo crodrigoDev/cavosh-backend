@@ -1,7 +1,9 @@
 package com.api.cavoshbackend.usuario.model;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -45,7 +47,7 @@ public class Usuario {
             String email,
             String passwordHash,
             String fotoUrl
-    ){
+    ) {
         this.nombreCompleto = nombreCompleto.strip();
         this.email = email;
         this.passwordHash = passwordHash;
@@ -53,7 +55,7 @@ public class Usuario {
         this.activo = false;
     }
 
-    public void activar(){
+    public void activar() {
         this.activo = true;
     }
 }

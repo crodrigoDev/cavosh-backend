@@ -1,8 +1,8 @@
 package com.api.cavoshbackend.usuario.exception;
 
-public class CuentaNoVerificadaException extends RuntimeException{
+public class CuentaNoVerificadaException extends RuntimeException {
 
-    public CuentaNoVerificadaException(){
+    public CuentaNoVerificadaException() {
         super("La cuenta no esta verificada");
     }
 }

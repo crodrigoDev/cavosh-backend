@@ -20,7 +20,7 @@ public class JwtConfiguration {
     ) {
         byte[] bytes = Base64.getDecoder().decode(secret);
 
-        if( bytes.length < 32)
+        if (bytes.length < 32)
             throw new IllegalArgumentException("JWT SECRET debe tener al menos 32 bytes");
 
         return new SecretKeySpec(bytes, "HmacSHA256");
@@ -37,9 +37,9 @@ public class JwtConfiguration {
     @Bean
     @Primary
     public JwtDecoder jwtDecoder(
-        SecretKey secretKey,
-        @Value("${spring.app.jwt.issuer}") String issuer
-    ){
+            SecretKey secretKey,
+            @Value("${spring.app.jwt.issuer}") String issuer
+    ) {
         NimbusJwtDecoder decoder = NimbusJwtDecoder
                 .withSecretKey(secretKey)
                 .macAlgorithm(MacAlgorithm.HS256)

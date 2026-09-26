@@ -8,9 +8,9 @@ import jakarta.validation.constraints.Size;
 /**
  * Dto para la request del endpoint de Registrar
  *
- * @param nombreCompleto nombre completo del usuario
- * @param email email del usuario
- * @param password contraseña del usuario
+ * @param nombreCompleto  nombre completo del usuario
+ * @param email           email del usuario
+ * @param password        contraseña del usuario
  * @param passwordConfirm confirmación de la contraseña del usuario
  */
 public record RegistrarRequest(
@@ -38,7 +38,7 @@ public record RegistrarRequest(
      * @return {@code true} si es que las contraseñas coinciden
      */
     @AssertTrue(message = "Las contraseñas no coinciden")
-    public boolean isPasswordConfirmValido(){
+    public boolean isPasswordConfirmValido() {
         return password != null && password.equals(passwordConfirm);
     }
 }
