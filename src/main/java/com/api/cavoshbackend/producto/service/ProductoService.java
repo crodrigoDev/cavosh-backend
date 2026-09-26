@@ -81,7 +81,7 @@ public class ProductoService {
         Producto producto = productoRepository.findByIdAndDisponibleTrue(id)
                 .orElseThrow(() -> new ProductoNoEncontradoException(id));
 
-        List<ProductoSizeResponse> tamanos = productoSizeRepository.findByProductoIdOrderByIdAsc(id)
+        List<ProductoSizeResponse> sizes = productoSizeRepository.findByProductoIdOrderByIdAsc(id)
                 .stream()
                 .map(size -> new ProductoSizeResponse(
                         size.getId(), size.getNombre(), size.getPrecio(), size.isPredeterminado()))
@@ -105,7 +105,7 @@ public class ProductoService {
                 producto.isNuevo(),
                 producto.isFrecuente(),
                 producto.isPersonalizable(),
-                tamanos,
+                sizes,
                 opciones);
     }
 }

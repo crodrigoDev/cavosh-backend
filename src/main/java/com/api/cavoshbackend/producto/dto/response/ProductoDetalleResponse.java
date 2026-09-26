@@ -11,7 +11,7 @@ public record ProductoDetalleResponse(
         boolean nuevo,
         boolean frecuente,
         boolean personalizable,
-        List<ProductoSizeResponse> tamanos,
+        List<ProductoSizeResponse> sizes,
         List<OpcionPersonalizacionResponse> opcionesPersonalizacion
 ) {
 }
