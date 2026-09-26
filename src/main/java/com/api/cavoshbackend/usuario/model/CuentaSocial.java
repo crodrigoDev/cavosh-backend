@@ -12,10 +12,10 @@ import java.time.Instant;
 @AllArgsConstructor
 @Getter
 @Table(
-        name = "cuenta_social",
+        name = "cuentas_sociales",
         uniqueConstraints = {
             @UniqueConstraint(
-                    name = "uk_cuenta_social_proveedor_id",
+                    name = "uk_cuentas_sociales_proveedor_id",
                     columnNames = {"proveedor", "id_proveedor"}
             )
     })

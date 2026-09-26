@@ -11,7 +11,7 @@ import java.time.Instant;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-@Table(name = "codigo_verificacion")
+@Table(name = "codigo_verificaciones")
 public class CodigoVerificacion {
 
     @Id

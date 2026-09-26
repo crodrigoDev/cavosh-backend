@@ -8,8 +8,9 @@ CREATE TABLE usuarios
     activo              BOOLEAN                                 NOT NULL,
     fecha_creacion      TIMESTAMPTZ                             NOT NULL,
     fecha_actualizacion TIMESTAMPTZ                             NOT NULL,
-    CONSTRAINT pk_usuarios PRIMARY KEY (id)
-);
 
-ALTER TABLE usuarios
-    ADD CONSTRAINT uc_usuarios_email UNIQUE (email);
+    CONSTRAINT pk_usuarios
+        PRIMARY KEY (id),
+    CONSTRAINT uc_usuarios_email
+        UNIQUE (email)
+);
