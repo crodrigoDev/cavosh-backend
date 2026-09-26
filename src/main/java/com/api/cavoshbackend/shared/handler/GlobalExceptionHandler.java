@@ -1,5 +1,6 @@
 package com.api.cavoshbackend.shared.handler;
 
+import com.api.cavoshbackend.favorito.exception.FavoritoInvalidoException;
 import com.api.cavoshbackend.producto.exception.ProductoNoEncontradoException;
 import com.api.cavoshbackend.pedido.exception.PedidoInvalidoException;
 import com.api.cavoshbackend.pedido.exception.PedidoNoEncontradoException;
@@ -199,6 +200,15 @@ public class GlobalExceptionHandler {
             HttpServletRequest request
     ) {
         return buildResponse(HttpStatus.BAD_REQUEST, "INVALID_ORDER",
+                exception.getMessage(), List.of(), request);
+    }
+
+    @ExceptionHandler(FavoritoInvalidoException.class)
+    public ResponseEntity<ErrorResponse> handleFavoritoInvalido(
+            FavoritoInvalidoException exception,
+            HttpServletRequest request
+    ) {
+        return buildResponse(HttpStatus.BAD_REQUEST, "INVALID_FAVORITE",
                 exception.getMessage(), List.of(), request);
     }
 
